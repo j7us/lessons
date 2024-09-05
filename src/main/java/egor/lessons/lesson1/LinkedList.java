@@ -76,17 +76,6 @@ public class LinkedList
             return;
         }
 
-        if (node.value == value) {
-            this.head = node.next;
-
-            if (this.tail == node) {
-                this.tail = null;
-                return;
-            }
-
-            node = node.next;
-        }
-
         while (node.next != null) {
             if (node.next.value == value) {
                 Node removingNode = node.next;
@@ -94,10 +83,19 @@ public class LinkedList
 
                 if (removingNode.next == null) {
                     this.tail = node;
-                    return;
+                    break;
                 }
             }
             node = node.next;
+        }
+
+        if (this.head.value == value) {
+            Node previousHead = this.head;
+            this.head = this.head.next;
+
+            if (this.tail == previousHead) {
+                this.tail = null;
+            }
         }
     }
 

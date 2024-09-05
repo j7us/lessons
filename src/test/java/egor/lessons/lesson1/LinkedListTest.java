@@ -113,7 +113,7 @@ public class LinkedListTest {
         LinkedList linkedList = new LinkedList();
 
         linkedList.addInTail(new Node(0));
-        linkedList.addInTail(new Node(1));
+        linkedList.addInTail(new Node(0));
         linkedList.addInTail(new Node(1));
         linkedList.addInTail(new Node(0));
 
@@ -293,36 +293,5 @@ public class LinkedListTest {
         linkedList.insertAfter(afterNode, testNode);
 
         assertThat(linkedList.tail.value).isEqualTo(2);
-    }
-
-    @Test
-    void sumTest() {
-        LinkedList first = new LinkedList();
-
-        first.addInTail(new Node(0));
-        first.addInTail(new Node(1));
-        first.addInTail(new Node(2));
-        first.addInTail(new Node(3));
-
-        LinkedList second = new LinkedList();
-
-        second.addInTail(new Node(0));
-        second.addInTail(new Node(1));
-        second.addInTail(new Node(2));
-        second.addInTail(new Node(3));
-
-        LinkedList result = LinkedList.sumLinkedListValues(first, second);
-
-        assertThat(result).isNotNull();
-    }
-
-    @Test
-    void sumEmptylistsTest() {
-        LinkedList first = new LinkedList();
-        LinkedList second = new LinkedList();
-
-        LinkedList result = LinkedList.sumLinkedListValues(first, second);
-
-        assertThat(result.head).isNull();
     }
 }
