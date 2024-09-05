@@ -48,8 +48,15 @@ public class LinkedList
 
         if (node == null) {
             return false;
-        } else if (node.value == value) {
+        }
+
+        if (node.value == value) {
+            if (this.head == this.tail) {
+                this.tail = null;
+            }
+
             this.head = node.next;
+
             return true;
         }
 
@@ -58,7 +65,7 @@ public class LinkedList
                 Node removingNode = node.next;
                 node.next = removingNode.next;
 
-                if (removingNode.next == null) {
+                if (node.next == null) {
                     this.tail = node;
                 }
                 return true;
@@ -81,10 +88,11 @@ public class LinkedList
                 Node removingNode = node.next;
                 node.next = removingNode.next;
 
-                if (removingNode.next == null) {
+                if (node.next == null) {
                     this.tail = node;
-                    break;
                 }
+
+                continue;
             }
             node = node.next;
         }
