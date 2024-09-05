@@ -189,4 +189,22 @@ public class LinkedListTest {
 
         assertThat(linkedList.count()).isEqualTo(4);
     }
+
+    @Test
+    void sumListTest() {
+        LinkedList first = new LinkedList();
+
+        first.addInTail(new Node(1));
+        first.addInTail(new Node(2));
+        first.addInTail(new Node(3));
+
+        LinkedList second = new LinkedList();
+
+        second.addInTail(new Node(4));
+        second.addInTail(new Node(3));
+
+        LinkedList res = LinkedListCombiner.sumLinkedListValues(first, second);
+
+        assertThat(res.head).isNull();
+    }
 }
