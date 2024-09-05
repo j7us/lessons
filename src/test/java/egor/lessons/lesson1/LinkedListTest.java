@@ -273,7 +273,6 @@ public class LinkedListTest {
         Node testNode = new Node(2);
 
         linkedList.addInTail(new Node(0));
-        linkedList.addInTail(new Node(1));
 
         linkedList.insertAfter(null, testNode);
 

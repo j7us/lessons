@@ -121,7 +121,7 @@ public class LinkedList
         if (nodeAfter == null) {
             nodeToInsert.next = this.head;
 
-            if (this.tail == this.head) {
+            if (this.tail == null) {
                 this.tail = nodeToInsert;
             }
 
