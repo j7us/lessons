@@ -7,6 +7,8 @@ public class LinkedList
     public Node head;
     public Node tail;
 
+    private int count;
+
     public LinkedList()
     {
         head = null;
@@ -19,6 +21,7 @@ public class LinkedList
         else
             this.tail.next = item;
         this.tail = item;
+        count++;
     }
 
     public Node find(int value) {
@@ -57,6 +60,7 @@ public class LinkedList
 
             this.head = node.next;
 
+            count--;
             return true;
         }
 
@@ -68,6 +72,7 @@ public class LinkedList
                 if (node.next == null) {
                     this.tail = node;
                 }
+                count--;
                 return true;
             }
             node = node.next;
@@ -92,6 +97,7 @@ public class LinkedList
                     this.tail = node;
                 }
 
+                count--;
                 continue;
             }
             node = node.next;
@@ -104,6 +110,8 @@ public class LinkedList
             if (this.tail == previousHead) {
                 this.tail = null;
             }
+
+            count--;
         }
     }
 
@@ -111,16 +119,11 @@ public class LinkedList
     {
         head = null;
         tail = null;
+        count = 0;
     }
 
     public int count()
     {
-        int count = 0;
-        Node node = this.head;
-        while (node != null) {
-            count++;
-            node = node.next;
-        }
         return count;
     }
 
@@ -134,6 +137,7 @@ public class LinkedList
             }
 
             this.head = nodeToInsert;
+            count++;
             return;
         }
 
@@ -148,6 +152,7 @@ public class LinkedList
                     this.tail = nodeToInsert;
                 }
 
+                count++;
                 return;
             }
 

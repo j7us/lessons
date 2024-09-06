@@ -154,10 +154,17 @@ public class LinkedListTest {
 
         linkedList.addInTail(new Node(1));
         linkedList.addInTail(new Node(2));
+        linkedList.addInTail(new Node(2));
         linkedList.addInTail(new Node(1));
         linkedList.addInTail(new Node(3));
 
-        assertThat(linkedList.count()).isEqualTo(4);
+        linkedList.remove(1);
+
+        linkedList.insertAfter(null, new Node(10));
+
+        linkedList.removeAll(2);
+
+        assertThat(linkedList.count()).isEqualTo(3);
     }
 
     @Test
@@ -199,9 +206,6 @@ public class LinkedListTest {
         first.addInTail(new Node(3));
 
         LinkedList second = new LinkedList();
-
-        second.addInTail(new Node(4));
-        second.addInTail(new Node(3));
 
         LinkedList res = LinkedListCombiner.sumLinkedListValues(first, second);
 
