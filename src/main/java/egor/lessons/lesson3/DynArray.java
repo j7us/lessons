@@ -25,11 +25,9 @@ public class DynArray<T>
         T[] newCapacityArray = (T[]) Array.newInstance(this.clazz, newCapacity);
 
         if (count != 0) {
-            int lenght = capacity < newCapacity
-                    ? count - 1
-                    : newCapacity - 1;
+            int length = Math.min(count, newCapacity);
 
-            System.arraycopy(array, 0, newCapacityArray, 0, lenght);
+            System.arraycopy(array, 0, newCapacityArray, 0, length);
         }
 
         capacity = newCapacity;
@@ -38,7 +36,7 @@ public class DynArray<T>
 
     public T getItem(int index)
     {
-        if (index > capacity-1) {
+        if (index > count-1 || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -57,18 +55,12 @@ public class DynArray<T>
 
     public void insert(T itm, int index)
     {
-        if (index > capacity-1) {
+        if (index > count-1 || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
         if (count == capacity) {
             makeArray(capacity * 2);
-        }
-
-        if (index > count - 1) {
-            count++;
-            array[index] = itm;
-            return;
         }
 
         System.arraycopy(array, index, array, index + 1, count - index);
@@ -79,7 +71,7 @@ public class DynArray<T>
 
     public void remove(int index)
     {
-        if (index > capacity-1) {
+        if (index > count-1 || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -91,13 +83,13 @@ public class DynArray<T>
             return;
         }
 
-        System.arraycopy(array, index + 1, array, index, capacity - index - 1);
+        System.arraycopy(array, index + 1, array, index, count - index);
         checkArraySize();
     }
 
     private void checkArraySize() {
-        if (capacity != 16
-                &&((capacity % 2 == 0 && count < capacity/2)
+        if (capacity > 16
+                && ((capacity % 2 == 0 && count < capacity/2)
                 || (capacity % 2 != 0 && count <= capacity/2))) {
             makeArray((int) (capacity/1.5));
         }
