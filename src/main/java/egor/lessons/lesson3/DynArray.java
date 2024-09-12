@@ -75,15 +75,15 @@ public class DynArray<T>
             throw new IndexOutOfBoundsException();
         }
 
-        count--;
-
         if (index == count - 1) {
             array[index] = null;
+            count--;
             checkArraySize();
             return;
         }
 
         System.arraycopy(array, index + 1, array, index, count - index);
+        count--;
         checkArraySize();
     }
 
