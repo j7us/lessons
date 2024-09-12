@@ -211,4 +211,12 @@ public class LinkedListTest {
 
         assertThat(res.head).isNull();
     }
+
+    @Test
+    void rand() {
+        int[] ints = new int[10];
+
+
+        System.out.println(ints.length);
+    }
 }
