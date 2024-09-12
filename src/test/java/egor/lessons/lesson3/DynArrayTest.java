@@ -89,7 +89,7 @@ public class DynArrayTest {
         array.append(2);
         array.append(3);
 
-        array.remove(2);
+        array.remove(1);
 
         assertThat(array.capacity).isEqualTo(16);
     }

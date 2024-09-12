@@ -55,7 +55,7 @@ public class DynArray<T>
 
     public void insert(T itm, int index)
     {
-        if (index > count-1 || index < 0) {
+        if (index > count || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -63,7 +63,9 @@ public class DynArray<T>
             makeArray(capacity * 2);
         }
 
-        System.arraycopy(array, index, array, index + 1, count - index);
+        if (index < count) {
+            System.arraycopy(array, index, array, index + 1, count - index);
+        }
 
         count++;
         array[index] = itm;
@@ -82,7 +84,8 @@ public class DynArray<T>
             return;
         }
 
-        System.arraycopy(array, index + 1, array, index, count - index);
+        System.arraycopy(array, index + 1, array, index, count - index - 1);
+        array[count-1] = null;
         count--;
         checkArraySize();
     }
@@ -94,5 +97,4 @@ public class DynArray<T>
             makeArray((int) (capacity/1.5));
         }
     }
-
 }
