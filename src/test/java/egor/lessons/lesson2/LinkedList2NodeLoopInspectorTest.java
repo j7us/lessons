@@ -19,14 +19,14 @@ public class LinkedList2NodeLoopInspectorTest {
     void loopTest() {
         LinkedList2 list = new LinkedList2();
 
+        Node node = new Node(2);
+        Node nodeToTail = new Node(3);
+
         list.addInTail(new Node(1));
-        list.addInTail(new Node(2));
-        list.addInTail(new Node(3));
-        list.addInTail(new Node(4));
+        list.addInTail(node);
+        list.addInTail(nodeToTail);
 
-        Node testNode = list.tail.prev;
-
-        testNode.next = list.tail;
+        list.tail.next = list.head;
 
         boolean res = LinkedList2NodeLoopInspector.isAnyLoopInList(list);
 

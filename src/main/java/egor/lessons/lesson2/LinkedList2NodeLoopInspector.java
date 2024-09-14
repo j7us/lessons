@@ -11,7 +11,7 @@ public class LinkedList2NodeLoopInspector {
         Node fromTail = list.tail;
 
 
-        for(int i = 0; i < list.count(); i++) {
+        for(int i = 0; i < list.count() - 1; i++) {
             fromHead = fromHead.next;
             fromTail = fromTail.prev;
         }

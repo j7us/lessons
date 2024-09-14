@@ -19,15 +19,16 @@ public class LinkedList2SorterTest {
     void sortTest() {
         LinkedList2 list = new LinkedList2();
 
-        list.addInTail(new Node(-12560));
-        list.addInTail(new Node(13));
-        list.addInTail(new Node(13));
-        list.addInTail(new Node(548000));
-        list.addInTail(new Node(-1000));
-        list.addInTail(new Node(0));
+        list.addInTail(new Node(11));
+        list.addInTail(new Node(10));
+        list.addInTail(new Node(9));
+        list.addInTail(new Node(8));
+        list.addInTail(new Node(7));
+        list.addInTail(new Node(6));
+        list.addInTail(new Node(5));
 
         LinkedList2Sorter.sort(list);
 
-        assertThat(list.head.value).isEqualTo(-12560);
+        assertThat(list.head.value).isEqualTo(3);
     }
 }

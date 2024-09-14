@@ -11,29 +11,24 @@ public class LinkedList2Combiner {
         Node firstNode = first.head;
         Node secondNode = second.head;
 
-        for(int i = 0; firstNode != null || secondNode != null; i++) {
+        for(int i = 0; firstNode != null && secondNode != null; i++) {
             if (firstNode.value < secondNode.value) {
-                resultList.addInTail(firstNode);
+                resultList.addInTail(new Node(firstNode.value));
                 firstNode = firstNode.next;
-                continue;
-            }
-
-            if (secondNode.value < firstNode.value) {
-                resultList.addInTail(secondNode);
+            } else if (secondNode.value < firstNode.value) {
+                resultList.addInTail(new Node(secondNode.value));
                 secondNode = secondNode.next;
-            }
-
-            if (secondNode.value == firstNode.value) {
-                resultList.addInTail(firstNode);
-                resultList.addInTail(secondNode);
+            } else {
+                resultList.addInTail(new Node(firstNode.value));
+                resultList.addInTail(new Node(secondNode.value));
                 firstNode = firstNode.next;
                 secondNode = secondNode.next;
             }
         }
 
-        if (firstNode == null && secondNode != null) {
+        if (secondNode != null) {
             addAll(secondNode, resultList);
-        } else if (secondNode == null && firstNode != null) {
+        } else if (firstNode != null) {
             addAll(firstNode, resultList);
         }
 
@@ -43,7 +38,7 @@ public class LinkedList2Combiner {
     private static void addAll(Node from, LinkedList2 to) {
         Node addedNode = from;
         for (int i = 0; addedNode != null; i++) {
-            to.addInTail(addedNode);
+            to.addInTail(new Node(addedNode.value));
             addedNode = addedNode.next;
         }
     }
@@ -53,52 +48,35 @@ public class LinkedList2Combiner {
             return;
         }
 
-        Node current = list.head;
-        Node compared;
-
-        for (int i = 0; i < list.count()-1; i++) {
-            compared = current.next;
-
-            for (int x = i + 1; x < list.count(); x++) {
-
-                if (compared.value < current.value) {
-                    Node comparedPrev = compared.prev;
-                    compared.prev = current.prev;
-                    current.prev = comparedPrev;
-
-                    Node comparedNext = compared.next;
-                    compared.next = current.next;
-                    current.next = comparedNext;
-
-                    if (compared.next == compared) {
-                        compared.next = current;
-                        current.prev = compared;
-                    }
-
-                    if (current == list.head) {
-                        list.head = compared;
-                    } else {
-                        compared.prev.next = compared;
-                    }
-
-                    compared.next.prev = compared;
-
-                    if (compared == list.tail) {
-                        list.tail = current;
-                    } else {
-                        current.next.prev = current;
-                    }
-
-                    current.prev.next = current;
-
-                    current = compared;
+        for (Node current = list.head; current != null; current = current.next) {
+            for (Node prev = current.prev; prev != null; prev = prev.prev) {
+                if (current.value < prev.value) {
+                    swapNodes(prev, current, list);
+                    prev = current;
+                } else {
                     break;
                 }
-
-                compared = compared.next;
             }
+        }
+    }
 
-            current = current.next;
+    private static void swapNodes(Node prev, Node current, LinkedList2 list) {
+        prev.next = current.next;
+        Node prevForCurrent = prev.prev;
+        prev.prev = current;
+        current.next = prev;
+        current.prev = prevForCurrent;
+
+        if (list.head != prev) {
+            prevForCurrent.next = current;
+        } else {
+            list.head = current;
+        }
+
+        if (list.tail != current) {
+            prev.next.prev = prev;
+        } else {
+            list.tail = prev;
         }
     }
 }
