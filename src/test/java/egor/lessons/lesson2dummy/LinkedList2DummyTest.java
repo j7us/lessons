@@ -81,4 +81,13 @@ public class LinkedList2DummyTest {
 
         assertThat(res.value).isEqualTo(10000);
     }
+
+    @Test
+    void dummyTest() {
+        LinkedList2Dummy list = new LinkedList2Dummy();
+
+        Node head = list.getHead();
+
+        assertThat(head).isNull();
+    }
 }

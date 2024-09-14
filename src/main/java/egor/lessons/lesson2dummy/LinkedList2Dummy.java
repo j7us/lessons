@@ -28,13 +28,13 @@ public class LinkedList2Dummy {
     }
 
     public Node getHead() {
-        return this.head.next.isDummy()
+        return this.head.next instanceof DummyNode
                 ? null
                 : this.head.next;
     }
 
     public Node getTail() {
-        return this.tail.prev.isDummy()
+        return this.tail.prev instanceof DummyNode
                 ? null
                 : this.tail.prev;
     }
@@ -84,7 +84,7 @@ public class LinkedList2Dummy {
     public void removeAll(int _value)
     {
         Node node = this.head.next;
-        for (int i = 0; !node.isDummy(); i++) {
+        for (int i = 0; !(node instanceof DummyNode); i++) {
             if (node.value == _value) {
                 connectNeighbors(node.prev, node.next);
                 count--;
@@ -144,21 +144,12 @@ class Node {
         next = null;
         prev = null;
     }
-
-    public boolean isDummy() {
-        return false;
-    }
 }
 
 class DummyNode extends Node {
 
     public DummyNode() {
         super(0);
-    }
-
-    @Override
-    public boolean isDummy() {
-        return true;
     }
 }
 
