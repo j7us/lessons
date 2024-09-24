@@ -19,8 +19,8 @@ public class BankMethodDynArray<T> {
         makeArray(16);
     }
 
-    private boolean isEnoughChangesToResize(int newCapacity) {
-        return changesCount >= getResizeCost(newCapacity);
+    private void calculateChangesCount(int newCapacity) {
+         changesCount = changesCount -  getResizeCost(newCapacity);
     }
 
     private int getResizeCost(int newCapacity) {
@@ -54,7 +54,8 @@ public class BankMethodDynArray<T> {
 
     public void append(T itm)
     {
-        if (isEnoughChangesToResize(capacity * 2)) {
+        if (count == capacity) {
+            calculateChangesCount(capacity * 2);
             makeArray(capacity * 2);
         }
 
@@ -69,7 +70,8 @@ public class BankMethodDynArray<T> {
             throw new IndexOutOfBoundsException();
         }
 
-        if (isEnoughChangesToResize(capacity * 2)) {
+        if (count == capacity) {
+            calculateChangesCount(capacity * 2);
             makeArray(capacity * 2);
         }
 
@@ -91,7 +93,7 @@ public class BankMethodDynArray<T> {
         if (index == count - 1) {
             array[index] = null;
             count--;
-            changesCount += 3;
+            changesCount += 2;
             checkArraySize();
             return;
         }
@@ -99,13 +101,15 @@ public class BankMethodDynArray<T> {
         System.arraycopy(array, index + 1, array, index, count - index - 1);
         array[count-1] = null;
         count--;
-        changesCount += 3;
+        changesCount += 2;
         checkArraySize();
     }
 
     private void checkArraySize() {
         if (capacity > 16
-                && isEnoughChangesToResize((int) (capacity/1.5))) {
+                && ((capacity % 2 == 0 && count < capacity/2)
+                || (capacity % 2 != 0 && count <= capacity/2))) {
+            calculateChangesCount((int) (capacity/1.5));
             makeArray((int) (capacity/1.5));
         }
     }

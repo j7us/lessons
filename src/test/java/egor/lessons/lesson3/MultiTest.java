@@ -8,13 +8,19 @@ public class MultiTest {
 
     @Test
     void test() {
-        MultidimensionalDynArray<String> stringMultidimensionalDynArray
-                = new MultidimensionalDynArray<>(String.class, 3, 5, 5, 5);
+        MultidimensionalDynArray<String> array
+                = new MultidimensionalDynArray<>(String.class, 3, 3, 5, 4);
 
-        stringMultidimensionalDynArray.append("AAAAAAAA", 0, 0, 0);
+        for (int i = 0; i < 3; i++) {
+            for (int x = 0; x < 5; x++) {
+                for (int y = 0; y < 4; y++) {
+                    array.append("AA", i, x, y);
+                }
+            }
+        }
 
-        String item = stringMultidimensionalDynArray.getItem(0, 0, 0);
+        array.append("B", 4, 1, 1);
 
-        assertThat(item).isEqualTo("AAAAAAAA");
+        assertThat(array.getItem(4, 1, 1)).isEqualTo("B");
     }
 }
