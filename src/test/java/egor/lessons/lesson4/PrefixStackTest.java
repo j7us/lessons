@@ -18,7 +18,7 @@ public class PrefixStackTest {
         testStack.push("2");
         testStack.push("8");
 
-        int res = PrefixStack.calculatePrefix(testStack);
+        int res = PostfixStack.calculatePrefix(testStack);
 
         assertThat(res).isEqualTo(59);
     }
