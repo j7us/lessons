@@ -2,7 +2,7 @@ package egor.lessons.lesson4;
 
 public class PostfixStack {
 
-    public static int calculatePrefix(Stack<String> stack) {
+    public static int calculatePostfix(Stack<String> stack) {
         Stack<Integer> intStack = new Stack<>();
         boolean isEqualsChar = false;
 
@@ -15,8 +15,14 @@ public class PostfixStack {
                 case "-" -> intStack.push(first - second);
                 case "*" -> intStack.push(first * second);
                 case "/" -> intStack.push(first / second);
-                case "=" -> isEqualsChar = true;
-                default -> intStack.push(Integer.valueOf(i));
+                case "=" -> {isEqualsChar = true;
+                             if (first != null) {
+                                intStack.push(first);
+                             }}
+                default -> {intStack.push(Integer.valueOf(i));
+                            if (first != null) {
+                                intStack.push(first);
+                            }}
             }
         }
 

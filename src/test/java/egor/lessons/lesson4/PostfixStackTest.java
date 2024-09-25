@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class PrefixStackTest {
+public class PostfixStackTest {
 
     @Test
-    void calculatePrefixTest() {
+    void calculatePostfixTest() {
         Stack<String> testStack = new Stack<>();
         testStack.push("=");
         testStack.push("+");
@@ -18,7 +18,7 @@ public class PrefixStackTest {
         testStack.push("2");
         testStack.push("8");
 
-        int res = PostfixStack.calculatePrefix(testStack);
+        int res = PostfixStack.calculatePostfix(testStack);
 
         assertThat(res).isEqualTo(59);
     }
