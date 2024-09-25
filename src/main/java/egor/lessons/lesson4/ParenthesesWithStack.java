@@ -10,11 +10,11 @@ public class ParenthesesWithStack {
         for (Character ch : charArray) {
             if (ch == '(') {
                 stack.push(ch);
-            } else if (stack.pop() == null) {
+            } else if (stack.size() == 0) {
                 return false;
             }
         }
 
-        return stack.pop() == null;
+        return stack.size() == 0;
     }
 }

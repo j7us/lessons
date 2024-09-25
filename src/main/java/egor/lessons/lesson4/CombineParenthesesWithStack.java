@@ -14,7 +14,7 @@ public class CombineParenthesesWithStack {
         parenthesesCombo.put(')', '(');
 
         for (Character ch : parentheses.toCharArray()) {
-            if (ch == '(' || ch == '[' || ch == '{') {
+            if (!parenthesesCombo.containsKey(ch)) {
                 stack.push(ch);
                 continue;
             }
