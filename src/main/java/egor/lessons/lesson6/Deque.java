@@ -26,12 +26,18 @@ public class Deque<T>
 
     public T removeFront()
     {
+        if (count == 0) {
+            return null;
+        }
         count--;
         return list.removeFirst();
     }
 
     public T removeTail()
     {
+        if (count == 0) {
+            return null;
+        }
         count--;
         return list.removeLast();
     }
