@@ -3,6 +3,7 @@ package egor.lessons.lesson1;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
