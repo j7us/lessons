@@ -34,7 +34,7 @@ public class HashTable
         for (int i = indx + step; i < size + indx - 1; i += step) {
             int a = i < size - 1
                     ? i
-                    : i - size - 1;
+                    : i - (size - 1);
 
             if (slots[a] == null) {
                 return a;
@@ -66,7 +66,7 @@ public class HashTable
         for (int i = testIndx + step; i < size + testIndx - 1; i += step) {
             int a = i < size - 1
                     ? i
-                    : i - size - 1;
+                    : i - (size - 1);
 
             if (slots[a] == value) {
                 return a;

@@ -10,15 +10,15 @@ public class HashTableTest {
     void hashTest() {
         HashTable table = new HashTable(19, 3);
 
-        table.put("Test1");
-        table.put("Test1");
-        table.put("Test1");
-        table.put("Test1");
-        table.put("Test1");
-        table.put("Test1");
-        table.put("Test1");
-        table.put("Test1");
-        table.put("Test1");
+        table.put("Test0");
+        table.put("Test0");
+        table.put("Test0");
+        table.put("Test0");
+        table.put("Test0");
+        table.put("Test0");
+        table.put("Test0");
+        table.put("Test0");
+        table.put("Test0");
 
         int res = table.put("Test1");
 
