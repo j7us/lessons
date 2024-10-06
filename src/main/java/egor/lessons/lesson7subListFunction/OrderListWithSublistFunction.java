@@ -1,7 +1,8 @@
-package egor.lessons.lesson7;
+package egor.lessons.lesson7subListFunction;
+
+import egor.lessons.lesson7.OrderedList;
 
 import java.util.*;
-
 
 class Node<T>
 {
@@ -16,18 +17,15 @@ class Node<T>
     }
 }
 
-public class OrderedList<T>
-{
+public class OrderListWithSublistFunction<T> {
     public Node<T> head, tail;
-    private ArrayList<Node<T>> array;
     private int count;
     private boolean _ascending;
 
-    public OrderedList(boolean asc)
+    public OrderListWithSublistFunction(boolean asc)
     {
         head = null;
         tail = null;
-        array = new ArrayList<>();
         _ascending = asc;
     }
 
@@ -48,7 +46,6 @@ public class OrderedList<T>
             this.head = nodeToInsert;
             this.tail = nodeToInsert;
             count++;
-            array = getAll();
             return;
         }
 
@@ -57,7 +54,6 @@ public class OrderedList<T>
             nodeToInsert.prev = tail;
             this.tail = nodeToInsert;
             count++;
-            array = getAll();
             return;
         }
 
@@ -74,7 +70,6 @@ public class OrderedList<T>
                     prev.next = nodeToInsert;
                 }
 
-                array = getAll();
                 count++;
                 return;
             }
@@ -91,36 +86,20 @@ public class OrderedList<T>
 
     public Node<T> find(T val)
     {
-        if (head == null
-                || (_ascending && compare(val, head.value) < 0)
-                || (!_ascending && compare(val, head.value) > 0)) {
+        Node<T> node = new Node<>(val);
+
+        if (head == null || (compareNodeWithAsc(node, head) < 0)) {
             return null;
         }
 
-        return _ascending
-                ? findWithAsc(val)
-                : findWithDesc(val);
+        return findWithAsc(node, head);
     }
 
-    private Node<T> findWithAsc(T val) {
-        for (Node<T> currentNode = head; currentNode != null; currentNode = currentNode.next) {
-            int compare = compare(val, currentNode.value);
+    private Node<T> findWithAsc(Node<T> val, Node<T> nodeFrom) {
+        for (Node<T> currentNode = nodeFrom; currentNode != null; currentNode = currentNode.next) {
+            int compare = compareNodeWithAsc(val, currentNode);
 
             if (compare < 0) {
-                return null;
-            } else if (compare == 0) {
-                return currentNode;
-            }
-        }
-
-        return null;
-    }
-
-    private Node<T> findWithDesc(T val) {
-        for (Node<T> currentNode = head; currentNode != null; currentNode = currentNode.next) {
-            int compare = compare(val, currentNode.value);
-
-            if (compare > 0) {
                 return null;
             } else if (compare == 0) {
                 return currentNode;
@@ -139,7 +118,6 @@ public class OrderedList<T>
         for (Node<T> currentNode = head; currentNode != null; currentNode = currentNode.next) {
             if (compare(currentNode.value, val) == 0) {
                 removeNode(currentNode);
-                array = getAll();
                 count--;
                 return;
             }
@@ -166,7 +144,6 @@ public class OrderedList<T>
     {
         _ascending = asc;
         count = 0;
-        array = new ArrayList<>();
         head = null;
         tail = null;
     }
@@ -174,6 +151,32 @@ public class OrderedList<T>
     public int count()
     {
         return count;
+    }
+
+    public boolean isSubListExists(OrderListWithSublistFunction<T> subList) {
+        Node<T> subNode = subList.head;
+
+        for (Node<T> node = find(subNode.value); node != null; node = findWithAsc(subNode, node.next)) {
+            boolean res = isSubListExistsFromCurrentNode(node, subList);
+            if (res) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private boolean isSubListExistsFromCurrentNode(Node<T> node, OrderListWithSublistFunction<T> subList) {
+        Node<T> current = node;
+        Node<T> subNode = subList.head;
+
+        for (; subNode != null && current != null; subNode = subNode.next, current = current.next) {
+            if (compare(subNode.value, current.value) != 0) {
+                return false;
+            }
+        }
+
+        return subNode == null;
     }
 
     ArrayList<Node<T>> getAll()
@@ -186,32 +189,5 @@ public class OrderedList<T>
             node = node.next;
         }
         return r;
-    }
-
-    public int getIndexByValue(T val) {
-        if (array.isEmpty()) {
-            return -1;
-        }
-
-        Node<T> node = new Node<>(val);
-        int minIndex = 0;
-        int maxIndex = array.size() - 1;
-        int ind = -1;
-
-        for (; maxIndex >= minIndex;) {
-            int midIndex = (maxIndex - minIndex) / 2;
-            Node<T> midNode = array.get(midIndex);
-
-            if (compareNodeWithAsc(midNode, node) == 0) {
-                ind = midIndex;
-                maxIndex = midIndex - 1;
-            } else if (compareNodeWithAsc(midNode, node) < 0) {
-                minIndex = midIndex + 1;
-            } else {
-                maxIndex = midIndex - 1;
-            }
-        }
-
-        return ind;
     }
 }

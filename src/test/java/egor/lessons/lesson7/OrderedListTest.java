@@ -104,4 +104,23 @@ public class OrderedListTest {
 
         assertThat(testList.tail.value).isEqualTo("Z");
     }
+
+    @Test
+    void getIndexByValueTest() {
+        OrderedList<Integer> testList = new OrderedList<>(true);
+
+        testList.add(5);
+        testList.add(5);
+        testList.add(5);
+        testList.add(5);
+        testList.add(5);
+        testList.add(5);
+        testList.add(17);
+        testList.add(2);
+        testList.add(10);
+
+        int res = testList.getIndexByValue(5);
+
+        assertThat(res).isEqualTo(1);
+    }
 }
