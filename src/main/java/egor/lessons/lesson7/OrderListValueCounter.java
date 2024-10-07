@@ -22,6 +22,5 @@ public class OrderListValueCounter {
                 .max(Map.Entry.comparingByValue())
                 .map(Map.Entry::getKey)
                 .get();
-
     }
 }

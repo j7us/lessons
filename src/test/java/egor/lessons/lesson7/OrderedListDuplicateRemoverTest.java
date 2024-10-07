@@ -20,7 +20,7 @@ public class OrderedListDuplicateRemoverTest {
         testList.add(2);
         testList.add(10);
 
-        OrderedListDuplicateRemover.removeDuplicate(testList);
+        testList.removeDuplicate();
 
         assertThat(testList.count()).isEqualTo(5);
     }
@@ -33,7 +33,7 @@ public class OrderedListDuplicateRemoverTest {
         testList.add("A");
         testList.add("A");
 
-        OrderedListDuplicateRemover.removeDuplicate(testList);
+        testList.removeDuplicate();
 
         assertThat(testList.count()).isEqualTo(1);
     }

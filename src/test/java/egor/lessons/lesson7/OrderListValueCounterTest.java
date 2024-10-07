@@ -25,7 +25,7 @@ public class OrderListValueCounterTest {
         testList.add(2);
         testList.add(10);
 
-        Integer res = OrderListValueCounter.getMaxCountValue(testList);
+        Integer res = testList.getMaxCountValue();
 
         assertThat(res).isEqualTo(2);
     }

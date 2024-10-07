@@ -22,9 +22,9 @@ public class OrderedListMergerTest {
         second.add(2);
         second.add(5);
 
-        OrderedList<Integer> res = OrderedListMerger.mergeList(first, second, true);
+        first.mergeList(second);
 
-        assertThat(res.tail.value).isEqualTo(12);
+        assertThat(first.tail.value).isEqualTo(12);
     }
 
     @Test
@@ -37,8 +37,8 @@ public class OrderedListMergerTest {
 
         second.add(1);
 
-        OrderedList<Integer> res = OrderedListMerger.mergeList(first, second, true);
+        first.mergeList(second);
 
-        assertThat(res.tail.value).isEqualTo(7);
+        assertThat(first.tail.value).isEqualTo(7);
     }
 }
