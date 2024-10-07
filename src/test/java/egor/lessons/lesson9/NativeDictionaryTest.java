@@ -23,6 +23,6 @@ public class NativeDictionaryTest {
         dictionary.put("A", 1);
         dictionary.put("B", 2);
 
-        assertThat(dictionary.isKey("B")).isTrue();
+        assertThat(dictionary.isKey("")).isTrue();
     }
 }

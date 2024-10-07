@@ -18,7 +18,11 @@ class NativeDictionary<T>
 
     public int hashFun(String key)
     {
-        return key.hashCode() % size;
+        int ind = key.hashCode() % size;
+
+        return ind < 0
+                ? ind * -1
+                : ind;
     }
 
     private int seekSlot(String key) {
