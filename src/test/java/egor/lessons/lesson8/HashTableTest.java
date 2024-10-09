@@ -27,10 +27,10 @@ public class HashTableTest {
 
     @Test
     void findTest() {
-        HashTable table = new HashTable(19, 3);
+        HashTable table = new HashTable(27, 3);
 
-        table.put("Test1");
-        table.put("Test2");
+        table.put("ASDafsafd.anc");
+        table.put("123dsancj12");
         table.put("Test21");
         table.put("Test3");
         table.put("Test4");
