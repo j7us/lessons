@@ -34,8 +34,14 @@ public class PowerSet
 
     public boolean remove(String value)
     {
-        count--;
-        return map.remove(value) != null;
+        Object remove = map.remove(value);
+
+        if (remove != null) {
+            count--;
+            return true;
+        }
+
+        return false;
     }
 
     public PowerSet intersection(PowerSet set2)

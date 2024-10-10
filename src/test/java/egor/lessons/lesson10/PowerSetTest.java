@@ -169,4 +169,20 @@ public class PowerSetTest {
 
         assertThat(res).isFalse();
     }
+
+    @Test
+    void sizeTest() {
+        PowerSet powerSet = new PowerSet();
+        for (int i = 0; i < 15000; i++) {
+            powerSet.put("v" + i);
+        }
+
+        for (int i = 0; i < 100; i++) {
+            powerSet.remove("AA");
+        }
+
+        powerSet.remove("v0");
+
+        assertThat(powerSet.size()).isEqualTo(14999);
+    }
 }
