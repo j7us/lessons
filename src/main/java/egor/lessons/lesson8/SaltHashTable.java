@@ -7,13 +7,13 @@ import java.util.Random;
 public class SaltHashTable {
     public int size;
     public int step;
-    public String [] slots;
+    public Node [] slots;
 
     public SaltHashTable(int sz, int stp)
     {
         size = sz;
         step = stp;
-        slots = new String[size];
+        slots = new Node[size];
         for(int i=0; i<size; i++) slots[i] = null;
     }
 
@@ -54,7 +54,7 @@ public class SaltHashTable {
         int resIndx = seekSlot(node);
 
         if (resIndx >= 0) {
-            slots[resIndx] = value;
+            slots[resIndx] = node;
         }
 
         return resIndx;
