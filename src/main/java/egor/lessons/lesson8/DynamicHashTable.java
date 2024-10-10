@@ -1,22 +1,20 @@
 package egor.lessons.lesson8;
 
 public class DynamicHashTable {
-    public int size;
     public int step;
     private int count;
     public String [] slots;
 
-    public DynamicHashTable(int sz, int stp)
+    public DynamicHashTable()
     {
-        size = sz;
-        step = stp;
-        slots = new String[size];
-        for(int i=0; i<size; i++) slots[i] = null;
+        step = 3;
+        slots = new String[16];
+        for(int i=0; i<slots.length; i++) slots[i] = null;
     }
 
     public int hashFun(String value)
     {
-        int ind = value.hashCode() % size;
+        int ind = value.hashCode() % slots.length;
 
         return ind < 0
                 ? ind * -1
@@ -31,10 +29,10 @@ public class DynamicHashTable {
             return indx;
         }
 
-        for (int i = indx + step; i < size + indx - 1; i += step) {
-            int a = i < size - 1
+        for (int i = indx + step; i < slots.length + indx - 1; i += step) {
+            int a = i < slots.length - 1
                     ? i
-                    : i - (size - 1);
+                    : i - (slots.length - 1);
 
             if (slots[a] == null) {
                 return a;
@@ -46,7 +44,7 @@ public class DynamicHashTable {
 
     public int put(String value)
     {
-        if (count/(size/100.00) > 75.0) {
+        if (count/(slots.length/100.00) > 75.0) {
             resize();
         }
 
@@ -62,8 +60,8 @@ public class DynamicHashTable {
 
     private void resize() {
         String[] currentArray = slots;
-        slots = new String[size * 2];
-        size = size * 2;
+        int size = slots.length * 2;
+        slots = new String[size];
 
         for (String str : currentArray) {
             if (str != null) {
@@ -76,16 +74,16 @@ public class DynamicHashTable {
     {
         int testIndx = hashFun(value);
 
-        if (slots[testIndx] == value) {
+        if (slots[testIndx] != null && slots[testIndx].equals(value)) {
             return testIndx;
         }
 
-        for (int i = testIndx + step; i < size + testIndx - 1; i += step) {
-            int a = i < size - 1
+        for (int i = testIndx + step; i < slots.length + testIndx - 1; i += step) {
+            int a = i < slots.length - 1
                     ? i
-                    : i - (size - 1);
+                    : i - (slots.length - 1);
 
-            if (slots[a] == value) {
+            if (slots[a] != null && slots[a].equals(value)) {
                 return a;
             }
         }

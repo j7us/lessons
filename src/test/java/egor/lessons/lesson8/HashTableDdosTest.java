@@ -24,11 +24,10 @@ public class HashTableDdosTest {
     @Test
     void ddosWithSaltTest() {
         SaltHashTable table = new SaltHashTable(27, 3);
-
-        int hash1 = table.hashFun("AaAa");
-        int hash2 = table.hashFun("BBBB");
-        int hash3 = table.hashFun("AaBB");
-        int hash4 = table.hashFun("BBAa");
+        int hash1 = table.hashFun(new SaltHashTable.Node("AaAa", table.generateSalt()));
+        int hash2 = table.hashFun(new SaltHashTable.Node("BBBB", table.generateSalt()));
+        int hash3 = table.hashFun(new SaltHashTable.Node("AaBB", table.generateSalt()));
+        int hash4 = table.hashFun(new SaltHashTable.Node("BBAa", table.generateSalt()));
 
         assertThat(hash1)
                 .isNotEqualTo(hash2)

@@ -1,10 +1,13 @@
 package egor.lessons.lesson8;
 
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
+import java.util.Random;
+
 public class SaltHashTable {
     public int size;
     public int step;
     public String [] slots;
-    private String salt = "12ecasdq3vs";
 
     public SaltHashTable(int sz, int stp)
     {
@@ -14,31 +17,17 @@ public class SaltHashTable {
         for(int i=0; i<size; i++) slots[i] = null;
     }
 
-    public int hashFun(String val)
+    public int hashFun(Node val)
     {
-        StringBuilder builder = new StringBuilder();
 
-        int i = 0;
-
-        for (char c : val.toCharArray()) {
-            if (i % 2 == 0) {
-                builder.append(c);
-            }
-
-            builder.append(1);
-            builder.setCharAt(0, 'a');
-        }
-
-        builder.append(salt);
-
-        int ind = builder.toString().hashCode() % size;
+        int ind = val.getHashWithSalt() % size;
 
         return ind < 0
                 ? ind * -1
                 : ind;
     }
 
-    public int seekSlot(String value)
+    public int seekSlot(Node value)
     {
         int indx = hashFun(value);
 
@@ -61,7 +50,8 @@ public class SaltHashTable {
 
     public int put(String value)
     {
-        int resIndx = seekSlot(value);
+        Node node = new Node(value, generateSalt());
+        int resIndx = seekSlot(node);
 
         if (resIndx >= 0) {
             slots[resIndx] = value;
@@ -70,24 +60,31 @@ public class SaltHashTable {
         return resIndx;
     }
 
-    public int find(String value)
-    {
-        int testIndx = hashFun(value);
+    public String generateSalt() {
+        byte[] array = new byte[31];
+        new Random().nextBytes(array);
+        return new String(array, StandardCharsets.UTF_8);
+    }
 
-        if (slots[testIndx] == value) {
-            return testIndx;
+    static class Node {
+        private String val;
+        private String salt;
+
+        public Node(String val, String salt) {
+            this.val = val;
+            this.salt = salt;
         }
 
-        for (int i = testIndx + step; i < size + testIndx - 1; i += step) {
-            int a = i < size - 1
-                    ? i
-                    : i - (size - 1);
-
-            if (slots[a] == value) {
-                return a;
-            }
+        public String getVal() {
+            return val;
         }
 
-        return -1;
+        public String getSalt() {
+            return salt;
+        }
+
+        public int getHashWithSalt() {
+            return val.concat(salt).hashCode();
+        }
     }
 }
