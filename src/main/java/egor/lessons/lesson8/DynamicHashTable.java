@@ -62,6 +62,7 @@ public class DynamicHashTable {
         String[] currentArray = slots;
         int size = slots.length * 2;
         slots = new String[size];
+        count = 0;
 
         for (String str : currentArray) {
             if (str != null) {
