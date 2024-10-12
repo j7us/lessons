@@ -36,7 +36,7 @@ public class DynArray<T>
 
     public T getItem(int index)
     {
-        if (index > count-1 || index < 0) {
+        if (index > array.length-1 || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -55,7 +55,7 @@ public class DynArray<T>
 
     public void insert(T itm, int index)
     {
-        if (index > count || index < 0) {
+        if (index > array.length || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -69,6 +69,18 @@ public class DynArray<T>
 
         count++;
         array[index] = itm;
+    }
+
+    public void insertWithoutCopy(T itm, int index)
+    {
+        if (index > array.length || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        array[index] = itm;
+    }
+
+    public int getCapacity() {
+        return array.length;
     }
 
     public void remove(int index)
