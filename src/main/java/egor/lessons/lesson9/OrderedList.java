@@ -1,6 +1,9 @@
-package egor.lessons.lesson7;
+package egor.lessons.lesson9;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.Map;
 
 class Node<T>
 {
@@ -12,6 +15,10 @@ class Node<T>
         value = _value;
         next = null;
         prev = null;
+    }
+
+    public T getValue() {
+        return value;
     }
 }
 
