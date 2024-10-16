@@ -1,6 +1,7 @@
 package egor.lessons.lesson10;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 public class PowerSet
@@ -111,4 +112,41 @@ public class PowerSet
         return count == set2.size() && isSubset(set2);
     }
 
+    public PowerSet cartes(List<PowerSet> powerSets) {
+        PowerSet resultSet = new PowerSet();
+
+        if (powerSets == null || powerSets.isEmpty()) {
+            return this;
+        }
+
+        PowerSet set = powerSets.size() == 1
+                ? powerSets.get(0)
+                : getCartesFromRecursive(powerSets);
+
+
+        for (String firstSet : map.keySet()) {
+            for (String secondKey : set.map.keySet()) {
+                resultSet.put(firstSet.concat(secondKey));
+            }
+        }
+
+        return resultSet;
+    }
+
+    private PowerSet getCartesFromRecursive(List<PowerSet> powerSets) {
+        PowerSet firstSet = powerSets.get(0);
+        PowerSet secondSet = powerSets.size() > 2
+                ? getCartesFromRecursive(powerSets.subList(1, powerSets.size()))
+                : powerSets.get(1);
+
+        PowerSet resultSet = new PowerSet();
+
+        for (String fKey : firstSet.map.keySet()) {
+            for (String sKey : secondSet.map.keySet()) {
+                resultSet.put(fKey.concat(sKey));
+            }
+        }
+
+        return resultSet;
+    }
 }

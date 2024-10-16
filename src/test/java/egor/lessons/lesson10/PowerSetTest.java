@@ -2,6 +2,8 @@ package egor.lessons.lesson10;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PowerSetTest {
@@ -184,5 +186,27 @@ public class PowerSetTest {
         powerSet.remove("v0");
 
         assertThat(powerSet.size()).isEqualTo(14999);
+    }
+
+    @Test
+    void cartesTest() {
+        PowerSet powerSet = new PowerSet();
+        powerSet.put("A");
+        powerSet.put("B");
+        powerSet.put("C");
+
+        PowerSet powerSet2 = new PowerSet();
+        powerSet2.put("1");
+        powerSet2.put("2");
+        powerSet2.put("3");
+
+        PowerSet powerSet3 = new PowerSet();
+        powerSet3.put("+");
+        powerSet3.put("-");
+        powerSet3.put("=");
+
+        PowerSet resultSet = powerSet.cartes(List.of(powerSet2, powerSet3));
+
+        assertThat(resultSet.size()).isEqualTo(27);
     }
 }
